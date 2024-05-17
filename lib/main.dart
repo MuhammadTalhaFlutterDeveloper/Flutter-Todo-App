@@ -5,7 +5,6 @@ import 'package:notes_app/model/notes_model.dart';
 import 'package:path_provider/path_provider.dart';
 
 Future<void> main() async {
-  runApp(const MyApp());
   WidgetsFlutterBinding.ensureInitialized();
   //this line of code will create path in your local storage
   var directory = await getApplicationDocumentsDirectory();
@@ -13,10 +12,12 @@ Future<void> main() async {
   //it will initialize the hive database
   Hive.init(directory.path);
 
-  //we are registering notesAdapter
+  //we are registering notes Adapter
   Hive.registerAdapter(NotesModelAdapter());
   //we are creating a file through a notesModel
   await Hive.openBox<NotesModel>("notes");
+
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
